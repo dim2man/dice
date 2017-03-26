@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Привет</title>
+	<script type="text/javascript">
+		const N = 5;
+		let rnd;
+		function guess(num) {
+			document.querySelector('#res').innerText = rnd;
+			const msg = document.querySelector('#msg');
+			let cnt;
+			if (rnd == num) {
+				msg.style.color = 'green';
+				msg.innerText = 'Правильно, поздравляю!';
+				cnt = document.querySelector('#right');
+			} else {
+				msg.style.color = 'red';
+				msg.innerText = 'Ну нет, попробуй ещё...';
+				cnt = document.querySelector('#wrong');
+			}
+			dice();
+			cnt.innerText = (+cnt.innerText)+1;
+			document.querySelector('#game').style.display = 'none';
+			document.querySelector('#more').style.display = 'block';
+		}
+		function more() {
+			document.querySelector('#game').style.display = 'block';
+			document.querySelector('#more').style.display = 'none';
+		}
+		function dice() {
+			rnd = Math.floor(Math.random() * N) + 1;
+		}
+		dice();
+	</script>
+	<style>
+		* {user-select: none;}
+		button {font-size: 24px; padding: 10px 30px;}
+		button + button {margin-left: 50px;}
+	</style>
+</head>
+<body>
+<h1>Угадай число</h1>
+<h3>Правильных ответов <span id="right">0</span>, неправильных <span id="wrong">0</span></h3>
+<div id="game">
+<h2>Компьютер загадал число <script type="text/javascript">
+	for(let i=1; i<N; i++) {
+		if (i>1) {
+			document.write(', ');
+		}
+		document.write(i);
+	}
+	document.write(' или ' + N);
+</script>, угадаешь какое?</h2>
+<script type="text/javascript">
+	for(let i=1; i<=N; i++) {
+		document.write(`<button onclick="guess(${i})">${i}</button>`);
+	}
+</script>
+</div>
+<div id="more" style="display: none;">
+<h2><span id="res" style="font-size: 2em"></span><br /><span id="msg"></span></h2>
+<button onclick="more()">Играть ещё</button>
+</div>
+</body>
+</html>
